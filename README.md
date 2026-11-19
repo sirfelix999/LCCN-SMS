@@ -20,7 +20,7 @@ manager and no bundler: the files in this repository are the files served.
 index.html              Landing page markup
 css/style.css           All styles
 js/script.js            Mobile menu, scroll highlighting, hero slider
-assets/image/           Site photography
+assets/image/           Site photography (JPEG fallbacks + WebP variants)
 favicon.svg             Browser tab icon
 ```
 
@@ -40,7 +40,11 @@ Then open <http://localhost:3000>.
 - Image paths are relative (`assets/image/...`, `css/style.css`,
   `js/script.js`). If you move a file, update every reference — the CSS `url()`
   values in `css/style.css` are relative to the stylesheet, not the page.
-- The source images are named `school-N.jpg.jpg`; the doubled extension is
-  historical and the markup matches those names exactly.
+- Hero images ship as `school-N.jpg` (universal fallback) plus generated
+  `school-N-<width>.webp` variants used through `<picture>`/`srcset`. If you
+  replace a photo, regenerate the WebP widths and keep the `width`/`height`
+  attributes on the `<img>` in step with the new dimensions.
+- The originals are portrait shots only 555px wide at most, so the largest
+  WebP variant is capped at the source width rather than upscaled.
 - The phone numbers and email address on the page are still placeholders and
   must be replaced with the school's real contact details before launch.
