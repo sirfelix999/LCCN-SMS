@@ -591,6 +591,40 @@ footer {
     background: var(--gold);
 }
 
+/* SLIDESHOW PLAY/PAUSE */
+
+.slider-toggle {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    z-index: 6;
+
+    width: 40px;
+    height: 40px;
+    padding: 0;
+
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+}
+
+.slider-toggle:hover {
+    background: var(--gold);
+    color: var(--primary);
+}
+
+.slider-toggle:focus-visible {
+    background: var(--gold);
+    color: var(--primary);
+    outline: 3px solid white;
+    outline-offset: 2px;
+}
+
 /* MOBILE RESPONSIVENESS */
 
 @media (max-width: 650px) {
@@ -632,4 +666,14 @@ footer {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+/* Respect the visitor's motion preference */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .slide {
+        transition: none;
+    }
+
 }

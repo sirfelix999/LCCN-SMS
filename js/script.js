@@ -102,9 +102,15 @@ const prevButton = document.getElementById("prevSlide");
 const nextButton = document.getElementById("nextSlide");
 
 const dotsContainer = document.getElementById("sliderDots");
+const toggleButton = document.getElementById("toggleAutoplay");
+
+const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let currentSlide = 0;
 let sliderInterval = null;
+
+// Visitors who ask for reduced motion start paused; the control lets them opt in
+let isPaused = motionQuery.matches;
 
 let dots = [];
 
@@ -190,6 +196,12 @@ if (slides.length > 0 && dotsContainer && prevButton && nextButton) {
     function startSlider() {
 
         clearInterval(sliderInterval);
+        sliderInterval = null;
+
+        // Paused, or nothing to advance to: stay on the current slide
+        if (isPaused || slides.length < 2) {
+            return;
+        }
 
         sliderInterval = setInterval(function () {
 
@@ -201,7 +213,73 @@ if (slides.length > 0 && dotsContainer && prevButton && nextButton) {
 
 
     // ====================================
-    // 11. SLIDER BUTTON EVENTS
+    // 11. PLAY/PAUSE STATE
+    // ====================================
+
+    function updateToggleButton() {
+
+        if (!toggleButton) {
+            return;
+        }
+
+        const label = isPaused ? "Play slideshow" : "Pause slideshow";
+
+        toggleButton.setAttribute("aria-label", label);
+        toggleButton.setAttribute("title", label);
+
+        // The glyph is decorative; the aria-label carries the meaning
+        toggleButton.textContent = isPaused ? "\u25B6" : "\u275A\u275A";
+
+    }
+
+
+    function setPaused(paused) {
+
+        isPaused = paused;
+
+        startSlider();
+        updateToggleButton();
+
+    }
+
+
+    if (toggleButton) {
+
+        toggleButton.addEventListener("click", function () {
+
+            setPaused(!isPaused);
+
+        });
+
+    }
+
+
+    // Follow the operating system setting if it changes while the page is open.
+    // Only ever pauses: an explicit pause by the visitor is never overridden.
+
+    function handleMotionPreferenceChange(event) {
+
+        if (event.matches) {
+
+            setPaused(true);
+
+        }
+
+    }
+
+    if (typeof motionQuery.addEventListener === "function") {
+
+        motionQuery.addEventListener("change", handleMotionPreferenceChange);
+
+    } else if (typeof motionQuery.addListener === "function") {
+
+        motionQuery.addListener(handleMotionPreferenceChange);
+
+    }
+
+
+    // ====================================
+    // 12. SLIDER BUTTON EVENTS
     // ====================================
 
     nextButton.addEventListener("click", function () {
@@ -221,9 +299,10 @@ if (slides.length > 0 && dotsContainer && prevButton && nextButton) {
 
 
     // ====================================
-    // 12. START SLIDER
+    // 13. START SLIDER
     // ====================================
 
+    updateToggleButton();
     startSlider();
 
 }
