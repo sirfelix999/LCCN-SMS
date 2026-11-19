@@ -174,14 +174,13 @@ nav ul li a:hover {
 ========================= */
 
 .features {
-    di
     min-height: 550px;
     background:
         linear-gradient(
             rgba(3, 20, 45, 0.78),
             rgba(3, 20, 45, 0.65)
         ),
-        url("../assets/images/school.jpg");
+        url("../assets/image/school-1.jpg.jpg");
 
     background-size: cover;
     background-position: center;

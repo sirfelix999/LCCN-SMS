@@ -1,0 +1,32 @@
+# Operating system junk
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+
+# Editor and IDE state
+.vscode/
+.idea/
+*.swp
+
+# Logs and temporary files
+*.log
+*.tmp
+tmp/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Tooling that may be added with the management application
+node_modules/
+dist/
+build/
+.next/
+out/
+coverage/
+.cache/

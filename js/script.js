@@ -1,4 +1,3 @@
-```javascript
 // ====================================
 // 1. MOBILE NAVIGATION MENU
 // ====================================
@@ -233,4 +232,3 @@ if (slides.length > 0 && dotsContainer && prevButton && nextButton) {
 // ====================================
 // END OF LCCN ACADEMY JAVASCRIPT
 // ====================================
-```
